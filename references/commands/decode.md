@@ -304,7 +304,9 @@ Based on top competencies and identified gaps:
 
 ### Coaching State Integration
 
-Save to coaching_state.md (one entry per JD — multiple can exist):
+**Two outputs per decode** (both are required):
+
+**1. Save to `coaching_state.md`** (one entry per JD — multiple can exist):
 
 ```markdown
 ## JD Analysis: [Company] — [Role]
@@ -317,3 +319,12 @@ Save to coaching_state.md (one entry per JD — multiple can exist):
 - Unverified assumptions: [count of LOW/UNKNOWN confidence items]
 - Batch triage rank: [if part of batch — rank/total]
 ```
+
+**2. Save full decode to `prep/<company-slug>/decode.md`** (full output, for Obsidian reading):
+
+- Company slug: lowercase, hyphenated (e.g., `airwallex`, `google-maps`, `inbound-execution-pm`)
+- If the company is unknown: use a descriptive slug based on role type and date (e.g., `inbound-execution-pm`, `inbound-fsi-pm-apr9`)
+- If the directory doesn't exist, create it
+- File contains: full JD decode output (all sections from the output schema), plus a ## Status section at the bottom with next-action checkboxes
+- After writing the file, open it in Obsidian: `open "obsidian://open?path=/Users/shuhang/job-search/prep/<company-slug>/decode.md"`
+- For batch triage: save individual decodes to their respective company directories, then save the Batch Triage output to `prep/batch-triage-<date>.md` at the prep root level
