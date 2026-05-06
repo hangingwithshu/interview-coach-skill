@@ -1,56 +1,47 @@
 # Interview Coach
 
-A Claude Code-based interview coach that covers the full job search lifecycle — from JD analysis and resume optimization through mock interviews to post-offer negotiation. 23 commands across application materials, interview prep, practice, analysis, and comp coaching. It scores your answers across five dimensions, diagnoses root causes behind weak spots, builds a storybank you can retrieve under pressure, and adapts its coaching to your specific patterns. Not a generic question bank. An adaptive system that gets sharper the more you use it.
+A Claude Code-based interview coach that covers the full job search lifecycle, from JD analysis and resume optimization through mock interviews to post-offer negotiation. 23 commands across application materials, interview prep, practice, analysis, and comp coaching. It scores your answers across five dimensions, diagnoses root causes behind weak spots, builds a storybank you can retrieve under pressure, and adapts its coaching to your specific patterns. Not a generic question bank. An adaptive system that gets sharper the more you use it.
 
 Say `kickoff`, share your resume, and you're being coached in under 2 minutes.
 
 ---
 
+## Fork Modifications
+
+This is a fork of [noamseg/interview-coach-skill](https://github.com/noamseg/interview-coach-skill), which is no longer actively maintained.
+
+The main motivation for this fork is token efficiency. Every unnecessary prompt costs tokens, and in a session that runs dozens of commands, that adds up. These changes trim low-value back-and-forth so sessions stay focused.
+
+Two changes from the upstream:
+
+1. The `decode` command saves its output to `prep/<company>/decode.md` and opens it in Obsidian. JD analysis persists across sessions and stays linked to the company folder, so you don't re-run it and pay for it twice.
+
+2. The session-start recommendation no longer leads with "any news from X companies?" before suggesting the next move. The coach goes straight to the highest-leverage action (`hype` when an interview is within 48h, `stories` when the storybank is empty, etc.), cutting back-and-forth that burns tokens without adding coaching value.
+
+---
+
 ## What It Does
 
-**Scoring and diagnosis** — Every answer scored on Substance, Structure, Relevance, Credibility, and Differentiation, calibrated to your seniority. Scores map to root causes (status anxiety, narrative hoarding, conflict avoidance) with targeted fixes, not just "do better."
-
-**Adaptive coaching** — After scoring, a decision tree triages your bottleneck and branches to the right drill. If Relevance is your gap, you get question-decoding practice. If Substance, you build raw material. The system doesn't cycle through the same sequence for every candidate.
-
-**Multi-format transcript analysis** — Paste raw transcripts from Otter, Zoom, Grain, Google Meet, Teams, Tactiq, Granola, or any other tool. The system auto-detects the format and normalizes it. Analysis adapts to interview type: behavioral interviews get Q&A parsing, system design gets phase-based analysis (scoping, approach, deep-dive, tradeoff, adaptation), panel interviews track cross-interviewer dynamics, and mixed formats handle mode-switching between technical and behavioral segments. Each format gets its own anti-pattern detection and additional scoring dimensions.
-
-**Storybank with portfolio optimization** — Structured story management with full STAR text, earned secrets, strength ratings, and rapid-retrieval drills. Story-to-question mapping uses a 4-level fit scoring system (Strong Fit, Workable, Stretch, Gap) with portfolio optimization that resolves conflicts when multiple questions compete for the same story, tracks freshness and overuse, and prioritizes stories with strong earned secrets. Narrative identity extraction finds the 2-3 core themes across your stories so every answer reinforces a coherent thesis about who you are.
-
-**Practice and mocks** — 8-stage drill progression (constraint ladders, pushback handling, pivot drills, panel simulations, stress tests) plus full 4-6 question mock interviews in behavioral, system design, case study, panel, and technical+behavioral formats. Every round includes the interviewer's perspective — what they were actually thinking when you spoke. Role-drill scores map to core dimensions so specialized practice feeds into overall trend analysis. At Directness Level 5: expanded interviewer inner monologue, challenge notes on rounds 3+, and optional warmup skip.
-
-**Outcome calibration** — The system tracks whether its practice scores actually predict real interview outcomes. After 3+ real interviews, it runs scoring drift detection, identifies when external feedback contradicts coach scoring, and recalibrates. Cross-dimension root causes (like "conflict avoidance" affecting both Substance and Differentiation) get unified treatment instead of separate drills. The system also learns from successes — tracking which stories, dimensions, and patterns correlate with advancement.
-
-**Role-fit assessment** — Structured evaluation of candidate-role fit across five dimensions (requirement coverage, seniority alignment, domain relevance, competency overlap, trajectory coherence). Distinguishes strong fits from investable stretches and long shots, so candidates focus their energy on roles where they're competitive. Over time, rejection patterns reveal targeting insights that no amount of practice can fix.
-
-**Enhanced company intelligence** — Three research depth levels (Quick Scan, Standard, Deep Dive) with a structured search protocol and claim verification. Every company-specific claim maps to a source tier (verified, general knowledge, or unknown). Prep briefs include targeted web research before applying company knowledge, with source attribution for every finding.
-
-**Interview lifecycle** — Company research, role-specific prep briefs with interviewer intelligence, same-day post-interview debrief, outcome tracking that correlates practice scores with real results, and post-offer negotiation coaching with exact scripts.
-
-**Interview intelligence** — The system learns from your real interview experiences. Every transcript, debrief, and recruiter feedback adds to a personalized knowledge base: question patterns across companies, what works and what doesn't for you specifically, and feedback-outcome correlations. Intelligence data has temporal decay — stale data is flagged, not silently relied on.
-
-**Session continuity** — A persistent `coaching_state.md` file tracks your storybank, scores, patterns, drill progression, interview loops, interview intelligence, and calibration state across sessions. Pick up where you left off, weeks later. Saves are automatic.
-
-**Challenge protocol (Directness Level 5)** — At the highest directness setting, the coach actively challenges you through five lenses: Assumption Audit, Blind Spot Scan, Pre-Mortem, Devil's Advocate, and Strengthening Path. Stories get red-teamed after you add or improve them. Transcripts get challenged. Practice rounds 3+ include a rotating challenge note. Progress reports include a Hard Truth section. Hype includes a pre-mortem before interviews. Rejections get mined for leverage. The system also detects avoidance patterns — if you keep steering away from a weakness, it names it directly. Every challenge ends with a concrete fix. Levels 1-4 are completely unaffected.
-
-**Guided flow** — The coach recommends a specific next step after every command based on your coaching state — not a generic menu. When you say something like "prepare me for my interview at Google," it detects the multi-step intent and walks you through the full sequence (research, prep, concerns, hype) with natural transitions. Session start greetings include a prescriptive recommendation for the highest-leverage move right now.
-
-**LinkedIn profile optimization** — Section-by-section audit of your LinkedIn profile against how the platform actually works: recruiter boolean search mechanics, algorithm distribution, and section-specific impact. Three depth levels from quick audit to deep optimization with content strategy. Not a resume-to-LinkedIn copy — a platform-native optimization that treats LinkedIn as its own game.
-
-**Resume optimization** — Holistic resume audit across every dimension that actually affects outcomes: ATS parsing and ranking, recruiter scan behavior, bullet quality, seniority calibration, keyword coverage, structure, concern management, and cross-surface consistency. Three depth levels from quick audit to deep optimization with full bullet rewrite pipelines. When a storybank exists, the system mines it for quantified outcomes and earned secrets that should appear in resume bullets. When a JD is available, it produces a targeted version optimized for that specific application. Not a grammar check — a strategic overhaul of the resume as a job-search artifact.
-
-**Core positioning** — Builds the atomic unit of self-presentation: a positioning statement that distills who you are into a compelling, memorable core. Uses curiosity gap principles, earned secret anchoring, and the Present-Past-Future formula to produce variants at every duration (10-second elevator, 30-second networking, 60-second recruiter call, 90-second interview TMAY) plus a LinkedIn summary hook. The positioning statement is saved to coaching state and consumed by resume, linkedin, and outreach for cross-surface consistency. Three depth levels from quick draft to deep positioning with a full differentiation audit.
-
-**Networking outreach coaching** — Coaches the full outreach lifecycle: cold LinkedIn messages, warm introduction requests, informational interview asks, recruiter replies, follow-up sequences, and referral requests. Three depth levels from quick templates to full networking campaigns with multi-channel strategy. Messages are built on the candidate's Positioning Statement so every outreach is differentiated, not generic. The system knows platform mechanics (LinkedIn's 300-char connection request limit, optimal cold email length of 75-125 words, InMail response rates) and coaches accordingly. Includes a message quality rubric, follow-up cadence guidance, and the research showing that referrals account for 30-50% of hires from only 7% of applicants.
-
-**JD decoding and batch triage** — Analyzes job descriptions using six decoding lenses (repetition frequency, order and emphasis, required vs. nice-to-have, verb choices, between-the-lines signals, and what's missing) with confidence labels on every interpretation. Maps extracted competencies against the candidate's profile for a fit verdict. Generates specific questions to ask the recruiter for every uncertain interpretation. Batch triage mode compares 2-5 JDs to find the candidate's market-validated sweet spot and recommend where to invest application effort. Includes a teaching layer so candidates learn to decode JDs themselves over time.
-
-**Presentation round coaching** — Fills the prep gap for presentation-format interviews (system design presentations, business cases, portfolio reviews, strategy presentations, technical deep dives). Coaches narrative structure using four arc frameworks, optimizes openings and closings, calibrates content density against time limits (at ~130-150 words per minute), and prepares for Q&A with predicted questions and answer strategies. Three depth levels from quick structural framework to deep preparation with talk track review and constraint versions.
-
-**Early-process comp coaching** — Coaches the highest-leverage compensation moments: the recruiter screen "what are your salary expectations?" question, salary history handling, and application form strategy. Guides candidates through comp research (without fabricating data), helps construct a defensible range, and provides stage-specific scripts with backups for pushback. Covers the full pre-offer comp timeline and hands off to the negotiate command when a formal offer arrives. Three depth levels from a quick 30-second script to full career-transition comp positioning.
-
-**Differentiation** — Earned secrets and spiky POVs are a first-class dimension, not an afterthought. The system pushes you past "competent" toward "memorable."
-
-**Self-awareness** — Tracks the gap between your self-assessment and actual coach scores. Knows if you're an over-rater or under-rater, and adjusts coaching accordingly.
+| Feature | Description |
+|---|---|
+| Scoring and diagnosis | Every answer scored on five dimensions: Substance, Structure, Relevance, Credibility, and Differentiation, calibrated to your seniority. Scores map to root causes (status anxiety, narrative hoarding, conflict avoidance) with targeted fixes. |
+| Adaptive coaching | After scoring, a decision tree triages your bottleneck and routes you to the right drill. Relevance gap gets question-decoding practice. Substance gap builds raw material. The system doesn't run the same sequence for every candidate. |
+| Transcript analysis | Paste raw transcripts from Otter, Zoom, Grain, Google Meet, Teams, Tactiq, Granola, or any other tool. Auto-detects the format and normalizes it. Behavioral interviews get Q&A parsing, system design gets phase-based analysis, panel interviews track cross-interviewer dynamics. |
+| Storybank management | Full STAR text, earned secrets, strength ratings, and rapid-retrieval drills. Story-to-question mapping uses a 4-level fit scoring system with portfolio optimization that resolves conflicts, tracks freshness, and detects overuse. Narrative identity extraction finds 2-3 core themes so every answer reinforces a coherent thesis. |
+| Practice and mocks | 8-stage drill progression plus full 4-6 question mock interviews in behavioral, system design, case study, panel, and technical+behavioral formats. Every round includes the interviewer's inner monologue. |
+| Outcome calibration | Tracks whether practice scores predict real interview outcomes. After 3+ real interviews, runs scoring drift detection and recalibrates. Also learns from successes, tracking which stories and patterns correlate with advancement. |
+| Role-fit assessment | Evaluates fit across five dimensions: requirement coverage, seniority alignment, domain relevance, competency overlap, and trajectory coherence. Distinguishes strong fits from investable stretches and long shots, so you focus energy where you're competitive. |
+| Company research | Three depth levels (Quick Scan, Standard, Deep Dive) with a structured search protocol. Every company-specific claim maps to a source tier: verified, general knowledge, or unknown. |
+| Interview intelligence | Learns from your real interviews. Transcripts, debriefs, and recruiter feedback build a personalized knowledge base with temporal decay; stale data is flagged, not silently relied on. |
+| Application materials | Resume optimization across 8 dimensions, LinkedIn profile optimization against platform mechanics, a core positioning statement with variants at every duration (10s to 90s), and networking outreach coaching across 9 message types. Everything cross-references your storybank and positioning statement for consistency. |
+| JD analysis | Six-lens decoding with confidence labels on every interpretation. Maps extracted competencies against your profile for a fit verdict. Batch triage mode compares 2-5 JDs and finds your market-validated sweet spot. |
+| Presentation coaching | Coaches narrative structure using four arc frameworks, calibrates content density against time limits, and prepares Q&A with predicted questions and answer strategies. Three depth levels from quick framework to full talk track review. |
+| Comp coaching | Covers the recruiter screen "what are your salary expectations?" question, salary history handling, and application form strategy. Hands off to `negotiate` when a formal offer arrives. |
+| Session continuity | A persistent `coaching_state.md` file tracks your storybank, scores, patterns, drill progression, interview loops, and calibration state across sessions. Saves are automatic. |
+| Guided flow | Recommends a specific next step after every command based on your coaching state. Detects multi-step intent (e.g. "prepare me for my Google interview") and walks you through the full sequence with natural transitions. |
+| Challenge protocol | At Level 5, the coach red-teams stories through five lenses, runs pre-mortems before interviews, mines rejections for leverage, and names avoidance patterns directly. Levels 1-4 are unaffected. |
+| Differentiation | Earned secrets and spiky points of view are a first-class dimension. The system pushes past "competent" toward "memorable." |
+| Self-awareness | Tracks the gap between your self-assessment and actual coach scores. Knows if you're an over-rater or under-rater, and adjusts coaching accordingly. |
 
 ---
 
@@ -459,20 +450,6 @@ The skill is intentionally high-candor and evidence-based. It uses strengths-fir
 
 **How does it work across multiple sessions?**
 The skill writes a `coaching_state.md` file that tracks your storybank, scores, patterns, drill progression, interview outcomes, interview loops, and more. At the start of each session, it reads this file and picks up where you left off. Saves happen automatically after every major workflow — not just at session end.
-
----
-
-## Fork Modifications
-
-This is a fork of [noamseg/interview-coach-skill](https://github.com/noamseg/interview-coach-skill) with two changes beyond the upstream:
-
-**Auto-save decode output**
-
-The `decode` command now automatically saves its output to `prep/<company>/decode.md` in the job-search workspace and opens it in Obsidian. Useful when running `decode` as part of a broader job-search workflow — the output persists across sessions and stays linked to the company folder rather than living only in the conversation transcript.
-
-**Tighter session-start recommendation**
-
-Removed the "pending outcomes" check from the priority order at session start. The coach no longer leads with "any news from X companies?" before recommending the next move. It goes directly to the highest-leverage action (interview within 48h → `hype`, empty storybank → `stories`, etc.), which makes the opening of each session less interruptive when you just want to get to work.
 
 ---
 
