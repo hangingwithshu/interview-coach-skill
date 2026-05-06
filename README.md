@@ -61,11 +61,11 @@ Say `kickoff`, share your resume, and you're being coached in under 2 minutes.
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/noamseg/interview-coach-skill.git
+git clone https://github.com/hangingwithshu/interview-coach-skill.git
 cd interview-coach-skill
 ```
 
-Or [download it as a ZIP](https://github.com/noamseg/interview-coach-skill/archive/refs/heads/main.zip) and unzip.
+Or [download it as a ZIP](https://github.com/hangingwithshu/interview-coach-skill/archive/refs/heads/main.zip) and unzip.
 
 2. Activate the coach by renaming the skill file:
 
@@ -82,11 +82,11 @@ Requires any paid Claude plan. Also works with Claude Code (terminal), Cursor, o
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/noamseg/interview-coach-skill.git
+git clone https://github.com/hangingwithshu/interview-coach-skill.git
 cd interview-coach-skill
 ```
 
-Or [download it as a ZIP](https://github.com/noamseg/interview-coach-skill/archive/refs/heads/main.zip) and unzip.
+Or [download it as a ZIP](https://github.com/hangingwithshu/interview-coach-skill/archive/refs/heads/main.zip) and unzip.
 
 2. Activate the coach by renaming the skill file:
 
