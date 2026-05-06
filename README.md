@@ -462,6 +462,20 @@ The skill writes a `coaching_state.md` file that tracks your storybank, scores, 
 
 ---
 
+## Fork Modifications
+
+This is a fork of [noamseg/interview-coach-skill](https://github.com/noamseg/interview-coach-skill) with two changes beyond the upstream:
+
+**Auto-save decode output**
+
+The `decode` command now automatically saves its output to `prep/<company>/decode.md` in the job-search workspace and opens it in Obsidian. Useful when running `decode` as part of a broader job-search workflow — the output persists across sessions and stays linked to the company folder rather than living only in the conversation transcript.
+
+**Tighter session-start recommendation**
+
+Removed the "pending outcomes" check from the priority order at session start. The coach no longer leads with "any news from X companies?" before recommending the next move. It goes directly to the highest-leverage action (interview within 48h → `hype`, empty storybank → `stories`, etc.), which makes the opening of each session less interruptive when you just want to get to work.
+
+---
+
 ## Contributing
 
 Open an issue or PR with:
